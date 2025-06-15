@@ -21,11 +21,19 @@ class UserProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'string', 'max:50'],
-            'userId' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'email', 'max:100']
+        $rules = [
+        'avatar' => ['nullable', 'image', 'max:500'],
+        'name' => ['required', 'string', 'max:50'],
+        'userName' => ['required', 'string', 'max:50'],
+        'email' => ['required', 'email', 'max:100'],
+    ];
 
-        ];
+
+    if ($this->filled('current_password')) {
+        $rules['current_password'] = ['required', 'current_password'];
+        $rules['password'] = ['required', 'string', 'min:6', 'confirmed'];
+    }
+
+    return $rules;
     }
 }
