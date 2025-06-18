@@ -1,0 +1,1 @@
+function f(e,a){if(e.files&&e.files[0]){var i=new FileReader;i.onload=function(t){$(a).attr("src",t.target.result)},i.readAsDataURL(e.files[0])}}$(document).ready(function(){$("#select_file").change(function(){f(this,".profile-image-preview")})});

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Interfaces\MessangerInterface;
+use App\Interfaces\UserProfileInterface;
+use App\Repositories\MessangerRepository;
+use App\Repositories\UserProfileRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(MessangerInterface::class,MessangerRepository::class);
+        $this->app->bind(UserProfileInterface::class,UserProfileRepository::class);
     }
 
     /**
