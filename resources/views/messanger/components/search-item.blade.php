@@ -7,3 +7,5 @@
         <p>{{ $record->user_name }}</p>
     </div>
 </div>
+
+

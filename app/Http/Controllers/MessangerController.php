@@ -16,4 +16,8 @@ class MessangerController extends Controller
     public function index(){
         return $this->messengerRepository->index();
     }
+
+    public function userSearch(Request $request){
+        return $this->messengerRepository->userSearch($request);
+    }
 }

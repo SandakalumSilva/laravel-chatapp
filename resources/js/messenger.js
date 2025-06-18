@@ -12,9 +12,45 @@ function imagePreview(input, selector) {
     }
 }
 
+function searchUsers(query){
+$.ajax({
+    type: "GET",
+    url: "/messenger/search",
+    data: {query:query},
+    success: function (data) {
+        $('.user_search_list_result').html(data.records);
+    },
+    error:function(xhr,status,error){}
+});
+}
+
+function debounce(callback, delay) {
+    let timerId;
+    return function (...args) {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+            callback.apply(this, args);
+        }, delay)
+    }
+}
+
+
+
 $(document).ready(function(){
 
     $('#select_file').change(function () {
         imagePreview(this, '.profile-image-preview')
     });
+
+      const debouncedSearch = debounce(function () {
+        const value = $('.user_search').val();
+        searchUsers(value);
+    }, 500);
+
+    $('.user_search').on('keyup', function () {
+        let query = $(this).val();
+        if (query.length > 0) {
+            debouncedSearch();
+        }
+    })
 });
